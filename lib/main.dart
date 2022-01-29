@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +41,24 @@ class _MyHomePageState extends State<MyHomePage> {
   var paddingTop = 0.0;
   var paddingBottom = 0.0;
   var widthScreen = 0.0;
+
+  var now = DateTime.now();
+  Timer? timer;
+
+  @override
+  void initState() {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      now = now.add(const Duration(seconds: 1));
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildWidgetDateTime() {
-    final now = DateTime.now();
     final formattedTime = DateFormat('HH:mm', 'id').format(now);
     final formattedTime2 = DateFormat(':ss', 'id').format(now);
     final formattedDate = DateFormat('EEEE, dd MMM yyy', 'id').format(now);
@@ -234,7 +253,85 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildWidgetMenu() {
-    // TODO: buat widget yang menampilkan menu-nya
-    return Container();
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey[900],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            children: [
+              const Icon(
+                Icons.fingerprint,
+                color: Colors.orange,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Absensi',
+                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                      fontSize: 12,
+                      color: Colors.orange,
+                    ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.local_activity,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Kegiatan',
+                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.help,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Problem',
+                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.location_on,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Lokasi',
+                style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
