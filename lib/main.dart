@@ -38,10 +38,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var paddingTop = 0.0;
   var paddingBottom = 0.0;
+  var widthScreen = 0.0;
 
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
+    widthScreen = mediaQueryData.size.width;
     paddingTop = mediaQueryData.padding.top;
     paddingBottom = mediaQueryData.padding.bottom;
 
@@ -58,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             buildWidgetHeader(),
+            const SizedBox(height: 24),
             buildWidgetDateTime(),
             buildWidgetButtonPresence(),
             buildWidgetHistoryPresence(),
@@ -105,46 +108,84 @@ class _MyHomePageState extends State<MyHomePage> {
     final formattedTime = DateFormat('HH:mm', 'id').format(now);
     final formattedTime2 = DateFormat(':ss', 'id').format(now);
     final formattedDate = DateFormat('EEEE, dd MMM yyy', 'id').format(now);
-    return Padding(
-      padding: const EdgeInsets.only(top: 24.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.ideographic,
-            children: [
-              Text(
-                formattedTime,
-                style: Theme.of(context).textTheme.headline4?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[800],
-                    ),
-              ),
-              Text(
-                formattedTime2,
-                style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[800],
-                    ),
-              ),
-            ],
-          ),
-          Text(
-            formattedDate,
-            style: Theme.of(context).textTheme.headline6?.copyWith(
-              color: Colors.grey,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.ideographic,
+          children: [
+            Text(
+              formattedTime,
+              style: Theme.of(context).textTheme.headline4?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[800],
+                  ),
             ),
-          ),
-        ],
-      ),
+            Text(
+              formattedTime2,
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[800],
+                  ),
+            ),
+          ],
+        ),
+        Text(
+          formattedDate,
+          style: Theme.of(context).textTheme.headline6?.copyWith(
+                color: Colors.grey,
+              ),
+        ),
+      ],
     );
   }
 
   Widget buildWidgetButtonPresence() {
-    // TODO: buat widget yang menampilkan button presence
-    return Container();
+    return Expanded(
+      child: Container(
+        width: widthScreen / 1.5,
+        height: widthScreen / 1.5,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.orange[900]!,
+              Colors.orange,
+              Colors.orange[200]!,
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.orange.withOpacity(0.3),
+              offset: const Offset(0, 8),
+              blurRadius: 8,
+              spreadRadius: 8,
+            ),
+          ]
+        ),
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.fingerprint,
+              color: Colors.white,
+              size: widthScreen / 3,
+            ),
+            Text(
+              'Absen Masuk',
+              style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget buildWidgetHistoryPresence() {
