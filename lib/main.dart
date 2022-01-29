@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             buildWidgetDateTime(),
             buildWidgetButtonPresence(),
             buildWidgetHistoryPresence(),
+            const SizedBox(height: 24),
             buildWidgetMenu(),
           ],
         ),
@@ -165,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
               blurRadius: 8,
               spreadRadius: 8,
             ),
-          ]
+          ],
         ),
         alignment: Alignment.center,
         child: Column(
@@ -189,8 +190,47 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildWidgetHistoryPresence() {
-    // TODO: buat widget yang menampilkan button ijin tidak hadir dan history presensi
-    return Container();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.grey),
+              ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(12),
+              child: const Icon(
+                Icons.remove_circle,
+                color: Colors.red,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text('Ijin Tidak Hadir'),
+          ],
+        ),
+        Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.grey),
+              ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(12),
+              child: const Icon(
+                Icons.article_rounded,
+                color: Colors.orange,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text("Lihat History"),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget buildWidgetMenu() {
