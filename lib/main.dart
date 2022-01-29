@@ -42,14 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
   var paddingBottom = 0.0;
   var widthScreen = 0.0;
 
-  var now = DateTime.now();
   Timer? timer;
+  late ValueNotifier<DateTime> valueNotifierNow;
 
   @override
   void initState() {
+    valueNotifierNow = ValueNotifier<DateTime>(DateTime.now());
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      now = now.add(const Duration(seconds: 1));
-      setState(() {});
+      valueNotifierNow.value = DateTime.now();
     });
     super.initState();
   }
@@ -62,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('ini method build');
     final mediaQueryData = MediaQuery.of(context);
     widthScreen = mediaQueryData.size.width;
     paddingTop = mediaQueryData.padding.top;
@@ -81,7 +82,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             buildWidgetHeader(),
             const SizedBox(height: 24),
-            buildWidgetDateTime(),
+            ValueListenableBuilder<DateTime>(
+              valueListenable: valueNotifierNow,
+              builder: (BuildContext context, DateTime now, Widget? child) {
+                return buildWidgetDateTime(now);
+              },
+            ),
             buildWidgetButtonPresence(),
             buildWidgetHistoryPresence(),
             const SizedBox(height: 24),
@@ -124,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget buildWidgetDateTime() {
+  Widget buildWidgetDateTime(DateTime now) {
+    print('ini method buildWidgetDateTime');
     final formattedTime = DateFormat('HH:mm', 'id').format(now);
     final formattedTime2 = DateFormat(':ss', 'id').format(now);
     final formattedDate = DateFormat('EEEE, dd MMM yyy', 'id').format(now);
