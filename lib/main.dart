@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', '');
   runApp(const MyApp());
 }
 
@@ -97,8 +101,45 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget buildWidgetDateTime() {
-    // TODO: buat widget yang menampilkan tanggal dan jam sekarang
-    return Container();
+    final now = DateTime.now();
+    final formattedTime = DateFormat('HH:mm', 'id').format(now);
+    final formattedTime2 = DateFormat(':ss', 'id').format(now);
+    final formattedDate = DateFormat('EEEE, dd MMM yyy', 'id').format(now);
+    return Padding(
+      padding: const EdgeInsets.only(top: 24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.ideographic,
+            children: [
+              Text(
+                formattedTime,
+                style: Theme.of(context).textTheme.headline4?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+              ),
+              Text(
+                formattedTime2,
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[800],
+                    ),
+              ),
+            ],
+          ),
+          Text(
+            formattedDate,
+            style: Theme.of(context).textTheme.headline6?.copyWith(
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildWidgetButtonPresence() {
