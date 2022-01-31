@@ -1,16 +1,6 @@
-# flutter_mobile_attendance
+# Flutter: ValueListenableBuilder
+How to use widget `ValueListenableBuilder` in Flutter.
 
-How to use ValueListenableBuilder
+**Article**: https://medium.com/nusanet/flutter-valuelistenablebuilder-50a8a802300d
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://miro.medium.com/max/700/1*LvWYDK18GgIGhLp4Bk_3jw.png)
